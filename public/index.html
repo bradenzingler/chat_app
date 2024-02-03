@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <title>Socket Chat App</title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <ul id="messages"></ul>
+        <form id="form" action="">
+            <input id="input" autocomplete="off"/><button>Send</button>
+        </form>
+        <script src="socket.io/socket.io.js"></script>
+        <script>
+            /**
+             * This is the client side script
+             */
+            let counter = 0;
+
+            const socket = io({
+                auth: {
+                    serverOffset: 0
+                },
+                // enable retries
+                ackTimeout: 10000,
+                retries: 3
+            });
+
+            const form = document.getElementById('form');
+            const input = document.getElementById('input');
+            const messages = document.getElementById('messages');
+
+            // handle send message button
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                if (input.value) {
+                    const clientOffset = `${socket.id}-${counter++}`; // compute a unique offset
+                    socket.emit('chat message', input.value, clientOffset);
+                    input.value = '';
+                }
+            });
+
+            // send message to all users
+            socket.on('chat message', (msg, serverOffset) => {
+                const item = document.createElement('li');
+                console.log(msg);
+                item.textContent = msg;
+                messages.appendChild(item);
+                window.scrollTo(0, document.body.scrollHeight);
+                socket.auth.serverOffset = serverOffset;
+            });
+        </script>
+    </body>
+</html>
