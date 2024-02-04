@@ -1,10 +1,9 @@
 import express from 'express';
 import { createServer } from 'node:http';
-import { fileURLToPath } from 'node:url';
-import { dirname, join } from 'node:path';
 import { Server } from 'socket.io';
 import sqlite3 from 'sqlite3';
 import { open } from 'sqlite';
+
 
 /**
  * This script is used to handle the server.
@@ -43,17 +42,24 @@ io.on('connection', async (socket) => {
     socket.on('chat message', async (msg, clientOffset, callback) => {
         let result;
         try {
-            // store the message in the database
-            result = await db.run('INSERT INTO messages (content) VALUES (?)', msg);
-        } catch (e) {
-            if (e.errno === 19) {
-                callback();
-            } else {
-                // nothing to do, let client retry
+
+                // delete all messages
+                await db.run('DELETE FROM messages');
+                
+
+                // store the message in the database
+                result = await db.run('INSERT INTO messages (content) VALUES (?)', msg);
+
+                
+            } catch (e) {
+                if (e.errno === 19) {
+                    callback();
+                } else {
+                    // nothing to do, let client retry
+                }
+                return;
             }
-            return;
-        }
-        io.emit('chat message', msg, result.lastID);
+        io.emit('chat message', msg, result.lastID, clientOffset);
         callback(); // acknowledge the event
     });
 

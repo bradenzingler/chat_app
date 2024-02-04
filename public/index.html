@@ -4,12 +4,32 @@
         <meta name="viewport" content="width=device-width,initial-scale=1.0">
         <title>Socket Chat App</title>
         <link rel="stylesheet" href="styles.css">
+        <script src="handler.js"></script>
     </head>
     <body>
-        <ul id="messages"></ul>
-        <form id="form" action="">
-            <input id="input" autocomplete="off"/><button>Send</button>
-        </form>
+        <div id="message-side">
+            <h1>Messages</h1>
+            <div id="contact-selections">
+                <div class="contact">Contact 1</div>
+                <div class="contact">Contact 2</div>
+                <div class="contact">Contact 3</div>
+                <div class="contact">Contact 4</div>
+            </div>
+        </div>
+
+
+        <div id="message-box">
+            <div id="contact-bar">Contact 1</div>
+
+
+            <div id="messages" class="message recieved">
+            </div>
+
+            <form id="form" action="">
+                <input id="input" autocomplete="off"/><button>Send</button>
+            </form>
+        </div>
+
         <script src="socket.io/socket.io.js"></script>
         <script>
             /**
@@ -42,11 +62,17 @@
 
             // send message to all users
             socket.on('chat message', (msg, serverOffset) => {
-                const item = document.createElement('li');
-                console.log(msg);
-                item.textContent = msg;
-                messages.appendChild(item);
-                window.scrollTo(0, document.body.scrollHeight);
+                const message = document.createElement('div');
+                message.id = "messages";
+                message.className = "message sent";
+                const messagesContainer = document.getElementById('message-box');
+
+                message.textContent = msg;
+
+                // add new message
+                messagesContainer.appendChild(message);
+
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
                 socket.auth.serverOffset = serverOffset;
             });
         </script>

@@ -1,10 +1,125 @@
-body { margin: 0; padding-bottom: 3rem; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #252525;
+    color: rgb(255, 255, 255);
+    display: flex;
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+}
 
-#form { background: rgba(0, 0, 0, 0.15); padding: 0.25rem; position: fixed; bottom: 0; left: 0; right: 0; display: flex; height: 3rem; box-sizing: border-box; backdrop-filter: blur(10px); }
-#input { border: none; padding: 0 1rem; flex-grow: 1; border-radius: 2rem; margin: 0.25rem; }
-#input:focus { outline: none; }
-#form > button { background: #333; border: none; padding: 0 1rem; margin: 0.25rem; border-radius: 3px; outline: none; color: #fff; }
+#form {
+    background: #252525;
+    padding: 0.25rem;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    height: 3rem;
+    box-sizing: border-box;
+    backdrop-filter: blur(10px);
+    width: inherit;
+}
 
-#messages { list-style-type: none; margin: 0; padding: 0; }
-#messages > li { padding: 0.5rem 1rem; }
-#messages > li:nth-child(odd) { background: #efefef; }
+#input {
+    border: none;
+    padding: 0 1rem;
+    flex-grow: 1;
+    border-radius: 2rem;
+    margin: 0.25rem;
+}
+
+#input:focus {
+    outline: none;
+}
+
+#form>button {
+    background: #333;
+    border: none;
+    padding: 0 1rem;
+    margin: 0.25rem;
+    border-radius: 3px;
+    outline: none;
+    color: #fff;
+}
+
+#message-box {
+    width: 65%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 42%;
+}
+
+#contact-bar {
+    background-color: rgb(29, 28, 28);
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 63%;
+    padding: 1%;
+    font-size: 40px;
+    text-align: center;
+}
+
+
+#messages {
+    font-size: 20px;
+    display: flex;
+}
+
+.sent {
+    background-color: rgb(255, 0, 200);
+    align-self: flex-end;
+    margin-right: 5%;
+    border-radius: 15px;
+    color:#ffffff;
+    padding: 0.5rem;
+    margin: 0.25rem;
+}
+
+.recieved {
+    background-color: grey;
+    align-self: flex-start;
+    border-radius: 15px;
+    color:#ffffff;
+    padding: 0.5rem;
+    margin: 0.25rem;
+}
+
+
+#message-side {
+    width: 35%;
+    background-color: #363636;
+    height: 100%;
+    top: 0;
+    left: 0;
+    justify-content: left;
+}
+
+h1 {
+    margin: 3%;
+    font-size: 40px;
+}
+
+#contact-selections {
+    font-size: 24px;
+    margin: 0;
+    height: 100vh;
+}
+
+.contact {
+    padding: 4%;
+    justify-content: left;
+    cursor: pointer;
+}
+
+.contact:hover {
+    background-color: #252525;
+}
+
+hr {
+    width: 75%;
+    display: flex;
+    justify-content: left;
+    margin: 0;
+}
